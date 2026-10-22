@@ -65,6 +65,6 @@
       "Website needed: " + f.type.value + "\n" +
       "Budget: " + f.budget.value + "\n" +
       "Details: " + f.details.value.trim();
-    window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
+    window.open("https://wa.me/" + (window.LD_WA || WHATSAPP) + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
   });
 })();

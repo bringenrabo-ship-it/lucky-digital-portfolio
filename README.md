@@ -18,3 +18,6 @@ Open `index.html` in any browser.
 - Colours: edit the variables at the top of `style.css`.
 
 The inquiry form does not send email or store data. It opens WhatsApp with the message ready to send.
+
+## Admin (Supabase)
+See `SETUP.md` and `supabase.sql`. Fill in `config.js`, then open `/admin.html`.
