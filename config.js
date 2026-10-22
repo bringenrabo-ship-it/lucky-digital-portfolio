@@ -1,3 +1,6 @@
-// Supabase URL and ANON key only. Both are public by design; security comes from RLS in supabase.sql.
-// NEVER put the service_role key here.
-window.LD_CONFIG = { SUPABASE_URL: "", SUPABASE_ANON_KEY: "" };
+// Lucky Digital — Supabase Configuration
+
+window.LD_CONFIG = {
+  SUPABASE_URL: "https://hpmofqjotgamjiqidrtx.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_ATqkM14Fk90i5cbROSJoAg_ezE_HnBY"
+};
