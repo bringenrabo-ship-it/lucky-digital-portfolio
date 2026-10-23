@@ -1,33 +1,28 @@
-# Lucky Digital: admin setup guide
+# Lucky Digital: admin deployment guide
 
-## 1. Create the backend (about 10 minutes)
-1. Create a free project at supabase.com.
-2. SQL Editor > paste all of `supabase.sql` > Run. This creates the tables, Row Level Security policies and seeds your current services, project and contact details.
-3. Authentication > Providers > Email: keep enabled. Authentication > Sign In / Providers settings: **turn OFF "Allow new users to sign up"**.
-4. Authentication > Users > Add user (your email + a strong password).
-5. SQL Editor, run (use your email): `insert into admins select id from auth.users where email = 'you@example.com';`
+## 1. What to change in GitHub
+- **Replace** (same names): `index.html`, `style.css`, `live.js`, `admin.html`, `admin.js`, `config.js`, `SETUP.md`
+- **Add** (new): `supabase-update.sql`
+- **Leave unchanged**: `script.js`, `theme.js`, `supabase.sql` (already run), `favicon.svg`, `README.md`
 
-## 2. Connect the site
-Project Settings > API: copy the **Project URL** and the **anon public** key into `config.js`.
-The anon key is public by design; the database is protected by RLS, not by hiding this key. Never use the `service_role` key anywhere in this project.
+`config.js` was missing from the files you uploaded (you sent `config.pdf`), which caused the "Supabase URL and anon key" error. Both pages load `config.js`; it now holds your project URL (base URL only, no `/rest/v1/`) and publishable key. No Vercel environment variables are needed because this is a static site.
 
-## 3. Deploy
-Commit everything to your GitHub repo. Vercel redeploys automatically. Open `/admin.html` and sign in.
+## 2. SQL
+Open Supabase > SQL Editor, paste `supabase-update.sql`, run it once. It is safe to re-run. It adds missing columns, `achievements` and `experience` tables, indexes, RLS policies and the `media` Storage bucket (public read, admin-only write, 5 MB, images and PDF). Existing tables and data are untouched. Security uses your existing `public.admins` table and `is_admin()`.
 
-## What takes effect immediately (no redeploy)
-Services and projects (add, edit, delete, reorder, publish, unpublish, draft), contact email, WhatsApp number and footer tagline. Contact and footer links across the site update from these settings. "Preview (with drafts)" opens `index.html?preview=1`, which shows drafts only while you are signed in.
+## 3. Deploy and check
+Commit and push; Vercel redeploys. In Vercel > Deployments, the latest one should say Ready. Opening the site should show no error.
 
-## What needs a redeploy (edit files, push to GitHub)
-Layout, colours, fonts, new page sections, page copy in `index.html` (hero, about, process steps), navigation links, and any code change.
+## 4. Open the admin and sign in
+Go to `https://YOUR-SITE/admin.html` (there is no `/admin` route). Sign in with the email and password of the Supabase Auth user whose ID is `3c363552-ffcc-4e37-bd59-dd44edb315c2`. If that user has no password, set one in Supabase > Authentication > Users. Other accounts are rejected.
 
-## Safety behaviour
-- Authorization is enforced by Supabase RLS (`is_admin()`); the public can only read published rows.
-- Field lengths and URL format are checked in the admin and again by database constraints.
-- If Supabase is unreachable, empty, or `config.js` is blank, the site shows the built-in static content.
-- Deleting asks for confirmation.
+## 5. Check a change is live
+Admin > Homepage: change the hero heading > Save changes > reload the public site. For items, set the status to published.
 
-## Not included in this version
-Page creation, a section builder, a media library, FAQ/testimonial/education/experience content types, a visual style editor and a navigation editor. These were in your brief but are not built, so the admin shows no controls for them. Each can be added as its own table and admin tab in the same pattern as services and projects.
-
-## Theme
-The public site and admin each remember light/dark separately (`ld-theme`, `ld-admin-theme`) in the visitor's browser.
+## Honest limits
+- Not tested against your live project; I only syntax-checked the code. Test sign-in, one save and one upload first.
+- Appearance loads after the page paints, so a brief flash of default colours is possible. The big hero heading keeps its built-in gradient, so the text colour does not change it.
+- Fonts are limited to five safe system fonts (no outside font service).
+- The existing site has no Skills section, so "Skills and services" manages Services; skills text lives under About me.
+- There is no separate "short description" field; the Introduction is that text. Profile photo shows in About.
+- Page/section builders, a media-library browser and nav editor are still not included.

@@ -33,11 +33,11 @@
 <main id="main">
 <section class="hero" id="home">
   <div class="hero-copy">
-    <h1>Your Ideas.<br>Beautifully Built.</h1>
-    <p class="lead">I design and build modern, beautiful websites that help people and businesses turn their ideas into reality.</p>
+    <h1 data-ld="hero_heading">Your Ideas.<br>Beautifully Built.</h1>
+    <p class="lead" data-ld="hero_intro">I design and build modern, beautiful websites that help people and businesses turn their ideas into reality.</p>
     <div class="actions">
-      <a class="btn btn-green" href="#contact">Start a Project</a>
-      <a class="btn btn-glass" href="#projects">Explore My Work</a>
+      <a class="btn btn-green" data-ld-cta="primary" href="#contact">Start a Project</a>
+      <a class="btn btn-glass" data-ld-cta="secondary" href="#projects">Explore My Work</a>
     </div>
   </div>
   <div class="stage" aria-hidden="true">
@@ -84,7 +84,12 @@
   <h2>About Lucky Digital</h2>
   <p>Lucky Digital creates modern, attractive, responsive websites for individuals, businesses and organisations. I like websites that are simple to use, pleasant to look at and easy for visitors to understand.</p>
   <p>If you have an idea but don’t know how to turn it into a website, tell me about it and we will work it out together.</p>
+  <div id="about-extra"></div>
 </section>
+
+<section id="achievements" class="section" hidden><h2>Achievements</h2><div class="grid cards" id="ach-list"></div></section>
+
+<section id="experience" class="section" hidden><h2>Experience and leadership</h2><div class="grid cards" id="exp-list"></div></section>
 
 <section class="section" id="process">
   <h2>How it works</h2>
@@ -127,6 +132,7 @@
 <footer class="footer">
   <div><strong>Lucky Digital</strong><p>Your Ideas. Beautifully Built.</p></div>
   <nav aria-label="Footer"><a href="#home">Home</a><a href="#services">Services</a><a href="#projects">Projects</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+  <nav class="social-links" id="social-links" aria-label="Social links" hidden></nav>
   <div class="foot-bottom">
     <p class="copy">© <span id="year">2026</span> Lucky Digital. All rights reserved.</p>
     <div class="social">
